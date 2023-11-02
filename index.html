@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R.A.R.file</title>
+</head>
+
+<body>
+    <h1>R.A.R.file</h1>
+    <form enctype="multipart/form-data" action="/upload" method="post">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    <h2>Available Files</h2>
+    <ul id="fileList"></ul>
+
+    <script>
+        fetch('/files')
+            .then(response => response.json())
+            .then(files => {
+                const fileList = document.getElementById('fileList');
+                files.forEach(file => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="/download/${file}">${file}</a>`;
+                    fileList.appendChild(listItem);
+                });
+            });
+    </script>
+</body>
+
+</html>
